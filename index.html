@@ -61,20 +61,19 @@
         }
 
         function playGame() {
-            while(humanScore <= 5 && computerScore <= 5) {
+            while(humanScore <= 4 && computerScore <= 4) {
                 humanSelection = getHumanChoice();
                 computerSelection = getComputerChoice();
-                break;
                 playRound(humanSelection, computerSelection);
                 console.log(`Score: ${humanScore} : ${computerScore}`);
             }
-            console.log("Thank you for the game!")
+            console.log("Thanks for the game!");
         }
 
         let humanSelection;
         let computerSelection;
-        console.log("START")
-        playGame()
+        console.log("START");
+        playGame();
         
 
     </script>
