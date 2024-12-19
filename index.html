@@ -6,6 +6,10 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
     <script>
         let humanScore = 0;
         let computerScore = 0;
@@ -61,37 +65,28 @@
         }
 
         function playGame() {
-            while(humanScore <= 4 && computerScore <= 4) {
-                humanSelection = getHumanChoice();
-                computerSelection = getComputerChoice();
-                playRound(humanSelection, computerSelection);
-                console.log(`Score: ${humanScore} : ${computerScore}`);
-            }
-            console.log("Thanks for the game!");
+            humanSelection = getHumanChoice();
+            computerSelection = getComputerChoice();
+            playRound(humanSelection, computerSelection);
+            console.log(`Score: ${humanScore} : ${computerScore}`);
         }
 
         let humanSelection;
         let computerSelection;
         console.log("START");
-        playGame();
+        //playGame();
         
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.addEventListener('click', (e) => {
+            humanSelection = e.target.id;
+            console.log(`Human: ${humanSelection}`);
+            humanSelection === rock ? humanSelection = 1 : 
+            humanSelection === paper ? humanSelection = 2 :
+            humanSelection === scissors ? humanSelection = 3 : 'error';
+            computerSelection = getComputerChoice();
 
-        //prime numbers
-        // let num = prompt("enter number:", 10);
-        // let answer = [];
-
-        // for (let i = 2; i <= num; i++) {
-        //     for (let j = 2; j<=i; j++) {
-        //         if (i == j) {
-        //             answer.push(i);
-        //             break;
-        //         } else if (i % j == 0){
-        //             break;
-        //         }
-        //     }
-        // }
-        // console.log(answer);
-
+            playRound(humanSelection, computerSelection);
+        }));
     </script>
 </body>
 </html>
