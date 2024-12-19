@@ -10,6 +10,10 @@
     <button id="paper">Paper</button>
     <button id="scissors">Scissors</button>
 
+    <div id="human"></div>
+    <div id="computer"></div>
+    <div id="score"></div>
+
     <script>
         let humanScore = 0;
         let computerScore = 0;
@@ -21,7 +25,7 @@
             (randomNum == 1) ? "paper" :
             (randomNum == 2) ? "scissors" : "error";  
 
-            console.log(`Computer: ${answer}`);
+            computerDiv.textContent = `Computer: ${answer}`;
             return answer;
         }
 
@@ -62,23 +66,12 @@
                 console.log(`You loose. ${computerChoice} beats ${humanChoice}`);
                 computerScore += 1;
             }
+            scoreDiv.textContent = `Human vs Computer: ${humanScore} : ${computerScore}`;
         }
 
-        function playGame() {
-            humanSelection = getHumanChoice();
-            computerSelection = getComputerChoice();
-            playRound(humanSelection, computerSelection);
-            console.log(`Score: ${humanScore} : ${computerScore}`);
-        }
-
-        let humanSelection;
-        let computerSelection;
-        console.log("START");
-        //playGame();
-        
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.addEventListener('click', (e) => {
+        function buttonChoice (e) {
             humanSelection = e.target.id;
+            humanDiv.textContent = `Human: ${humanSelection}`;
             console.log(`Human: ${humanSelection}`);
             humanSelection === rock ? humanSelection = 1 : 
             humanSelection === paper ? humanSelection = 2 :
@@ -86,7 +79,25 @@
             computerSelection = getComputerChoice();
 
             playRound(humanSelection, computerSelection);
-        }));
+            if (humanScore >= 5) {
+                scoreDiv.textContent = `You Win!`;
+                buttons.forEach(button => button.removeEventListener('click', buttonChoice));
+            }   
+            if (computerScore >= 5) {
+                scoreDiv.textContent = "You Lose!";
+                buttons.forEach(button => button.removeEventListener('click', buttonChoice));
+            }
+        }
+
+        let humanSelection;
+        let computerSelection;
+        
+        const buttons = document.querySelectorAll('button');
+        const humanDiv = document.querySelector('#human');
+        const computerDiv = document.querySelector('#computer');
+        const scoreDiv = document.querySelector('#score');
+
+        buttons.forEach(button => button.addEventListener('click', buttonChoice));
     </script>
 </body>
 </html>
